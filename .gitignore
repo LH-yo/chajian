@@ -1,0 +1,18 @@
+# 临时文件
+*.zip
+*.log
+
+# 解压的文件夹
+ask-continue-extracted/
+ask-continue-clean/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 端口配置文件（本地生成）
+.ask_continue_port
+
+# 空目录
+-p/
+.orchids/
