@@ -1297,17 +1297,16 @@ function getWebviewContent(reason) {
         }
         
         function updateImageList() {
-            const list = document.getElementById('imageList');
+            const dropZone = document.getElementById('dropZone');
             const preview = document.getElementById('imagePreview');
             
             if (imagePaths.length === 0 && imageContents.length === 0) {
-                list.innerHTML = '<div style="color: var(--vscode-descriptionForeground); padding: 15px; text-align: center;">Ctrl+V 粘贴图片 或 点击下方按钮选择</div>';
+                // 恢复默认拖放区域
+                dropZone.innerHTML = '<div class="drop-zone-icon">📷</div><div class="drop-zone-text">拖放图片到这里，或点击选择</div><div class="drop-zone-hint">支持 Ctrl+V 粘贴 | 支持多张图片</div>';
                 preview.innerHTML = '';
             } else {
-                // 显示文件名列表
-                list.innerHTML = imagePaths.map((p, i) => 
-                    '<div class="image-item"><span>' + escapeHtml(p.split(/[\\/]/).pop() || imageContents[i]?.name || 'pasted_image') + '</span><button onclick="removeImage(' + i + ')">✕</button></div>'
-                ).join('');
+                // 更新拖放区域显示已选图片数量
+                dropZone.innerHTML = '<div class="drop-zone-icon">✅</div><div class="drop-zone-text">已添加 ' + imagePaths.length + ' 张图片</div><div class="drop-zone-hint">继续拖放或点击添加更多</div>';
                 
                 // 显示图片预览（仅Base64模式有预览）
                 if (imageMode === 'content' && imageContents.length > 0) {
@@ -1318,7 +1317,13 @@ function getWebviewContent(reason) {
                         '</div>'
                     ).join('');
                 } else {
-                    preview.innerHTML = '';
+                    // 路径模式：显示文件名列表
+                    preview.innerHTML = imagePaths.map((p, i) => 
+                        '<div class="image-item" style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: var(--vscode-badge-background); border-radius: 4px; margin-bottom: 4px;">' +
+                        '<span style="font-size: 0.85em;">' + escapeHtml(p.split(/[\\\\/]/).pop()) + '</span>' +
+                        '<button onclick="removeImage(' + i + ')" style="background: transparent; border: none; color: var(--vscode-errorForeground); cursor: pointer;">✕</button>' +
+                        '</div>'
+                    ).join('');
                 }
             }
         }
