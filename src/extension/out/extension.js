@@ -1003,126 +1003,212 @@ function getWebviewContent(reason) {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: var(--vscode-font-family);
-            background: var(--vscode-editor-background);
+            background: linear-gradient(135deg, var(--vscode-editor-background) 0%, var(--vscode-sideBar-background) 100%);
             color: var(--vscode-editor-foreground);
-            padding: 20px;
+            padding: 24px;
             min-height: 100vh;
         }
-        .container { max-width: 500px; margin: 0 auto; }
+        .container { 
+            max-width: 520px; 
+            margin: 0 auto;
+            background: var(--vscode-editor-background);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid var(--vscode-widget-border);
+        }
         h1 {
-            font-size: 1.4em;
-            margin-bottom: 15px;
+            font-size: 1.5em;
+            margin-bottom: 20px;
             color: var(--vscode-titleBar-activeForeground);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #4FC3F7, #29B6F6);
+            border-radius: 2px;
         }
         .reason-box {
-            background: var(--vscode-textBlockQuote-background);
-            border-left: 3px solid var(--vscode-textLink-foreground);
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
+            background: linear-gradient(135deg, rgba(79,195,247,0.1) 0%, rgba(41,182,246,0.05) 100%);
+            border-left: 4px solid #4FC3F7;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
-        .reason-label { font-size: 0.85em; color: var(--vscode-descriptionForeground); margin-bottom: 5px; }
-        .reason-text { font-size: 1em; }
-        label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .reason-label { 
+            font-size: 0.8em; 
+            color: var(--vscode-descriptionForeground); 
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .reason-text { font-size: 1em; line-height: 1.5; }
+        label { 
+            display: block; 
+            margin-bottom: 10px; 
+            font-weight: 600;
+            font-size: 0.95em;
+        }
         textarea {
             width: 100%;
             height: 100px;
-            padding: 10px;
-            border: 1px solid var(--vscode-input-border);
+            padding: 14px;
+            border: 2px solid var(--vscode-input-border);
             background: var(--vscode-input-background);
             color: var(--vscode-input-foreground);
-            border-radius: 4px;
+            border-radius: 10px;
             font-family: inherit;
             font-size: 0.95em;
             resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        textarea:focus { outline: 1px solid var(--vscode-focusBorder); }
-        .image-section { margin: 15px 0; }
-        .image-list {
+        textarea:focus { 
+            outline: none;
+            border-color: #4FC3F7;
+            box-shadow: 0 0 0 3px rgba(79,195,247,0.2);
+        }
+        textarea::placeholder { color: var(--vscode-input-placeholderForeground); }
+        .image-section { 
+            margin: 20px 0;
+            padding: 16px;
             background: var(--vscode-input-background);
+            border-radius: 12px;
             border: 1px solid var(--vscode-input-border);
-            border-radius: 4px;
-            min-height: 60px;
-            max-height: 120px;
-            overflow-y: auto;
-            padding: 5px;
-            margin-bottom: 10px;
         }
-        .image-item {
+        .image-section > label {
+            margin-bottom: 12px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 5px 8px;
-            background: var(--vscode-badge-background);
-            border-radius: 3px;
-            margin-bottom: 4px;
-            font-size: 0.85em;
+            gap: 8px;
         }
-        .image-item:last-child { margin-bottom: 0; }
-        .image-item button {
-            background: transparent;
-            border: none;
-            color: var(--vscode-errorForeground);
+        .image-section > label::before {
+            content: '🖼️';
+        }
+        .mode-switch {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 8px;
+            background: var(--vscode-editor-background);
+            border-radius: 8px;
+        }
+        .mode-switch label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
             cursor: pointer;
-            font-size: 1.1em;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-weight: normal;
+            font-size: 0.85em;
+            margin: 0;
         }
-        .btn-row { display: flex; gap: 10px; margin-top: 20px; }
+        .mode-switch label:hover {
+            background: var(--vscode-list-hoverBackground);
+        }
+        .btn-row { 
+            display: flex; 
+            gap: 12px; 
+            margin-top: 24px; 
+        }
         button {
             flex: 1;
-            padding: 10px 20px;
+            padding: 14px 24px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             font-size: 1em;
+            font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        button:hover { opacity: 0.9; }
         .btn-continue {
-            background: var(--vscode-button-background);
-            color: var(--vscode-button-foreground);
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+        }
+        .btn-continue:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76,175,80,0.4);
         }
         .btn-end {
-            background: var(--vscode-button-secondaryBackground);
-            color: var(--vscode-button-secondaryForeground);
+            background: linear-gradient(135deg, #78909C, #607D8B);
+            color: white;
+            box-shadow: 0 4px 15px rgba(96,125,139,0.3);
+        }
+        .btn-end:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(96,125,139,0.4);
         }
         .btn-add {
-            background: var(--vscode-button-secondaryBackground);
-            color: var(--vscode-button-secondaryForeground);
-            padding: 8px 15px;
+            background: linear-gradient(135deg, #42A5F5, #1E88E5);
+            color: white;
+            padding: 10px 18px;
             flex: none;
+            font-size: 0.9em;
+            box-shadow: 0 3px 10px rgba(30,136,229,0.3);
+        }
+        .btn-add:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(30,136,229,0.4);
         }
         .shortcut-hint {
             text-align: center;
-            margin-top: 15px;
-            font-size: 0.8em;
+            margin-top: 20px;
+            font-size: 0.75em;
             color: var(--vscode-descriptionForeground);
+            padding: 10px;
+            background: var(--vscode-input-background);
+            border-radius: 8px;
+            border: 1px dashed var(--vscode-input-border);
+        }
+        .shortcut-hint kbd {
+            background: var(--vscode-badge-background);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
         }
         .image-preview {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 10px;
+            margin-top: 12px;
         }
         .image-preview-item {
             position: relative;
-            width: 80px;
-            height: 80px;
-            border-radius: 4px;
+            width: 72px;
+            height: 72px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid var(--vscode-input-border);
+            border: 2px solid var(--vscode-input-border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .image-preview-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .image-preview-item:hover img {
+            transform: scale(1.1);
         }
         .image-preview-item .remove-btn {
             position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 18px;
-            height: 18px;
-            background: rgba(0,0,0,0.6);
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #f44336, #d32f2f);
             border: none;
             border-radius: 50%;
             color: white;
@@ -1132,23 +1218,25 @@ function getWebviewContent(reason) {
             align-items: center;
             justify-content: center;
             padding: 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 6px rgba(244,67,54,0.4);
+        }
+        .image-preview-item:hover .remove-btn {
+            opacity: 1;
         }
         .image-preview-item .remove-btn:hover {
-            background: rgba(255,0,0,0.8);
-        }
-        .paste-hint {
-            color: var(--vscode-textLink-foreground);
-            font-size: 0.85em;
-            margin-top: 5px;
+            transform: scale(1.1);
         }
         /* 拖放区域样式 */
         .drop-zone {
-            border: 2px dashed var(--vscode-input-border);
-            border-radius: 8px;
-            padding: 20px;
+            border: 2px dashed var(--vscode-textLink-foreground);
+            border-radius: 12px;
+            padding: 24px;
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
+            background: linear-gradient(135deg, rgba(79,195,247,0.05) 0%, rgba(41,182,246,0.02) 100%);
             margin-bottom: 10px;
         }
         .drop-zone:hover {
@@ -2789,71 +2877,170 @@ class SidebarProvider {
             font-family: var(--vscode-font-family);
             font-size: var(--vscode-font-size);
             color: var(--vscode-foreground);
-            padding: 10px;
+            padding: 12px;
+            background: var(--vscode-sideBar-background);
         }
-        h3 { font-size: 1em; margin-bottom: 10px; }
-        .section { margin-bottom: 15px; }
-        .server-status {
+        h3 { 
+            font-size: 0.95em; 
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px;
-            background: var(--vscode-editor-inactiveSelectionBackground);
-            border-radius: 4px;
-            margin-bottom: 10px;
+            color: var(--vscode-foreground);
+        }
+        .section { 
+            margin-bottom: 16px;
+            padding: 14px;
+            background: var(--vscode-editor-background);
+            border-radius: 10px;
+            border: 1px solid var(--vscode-widget-border);
+            transition: box-shadow 0.2s;
+        }
+        .section:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .server-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--vscode-editor-inactiveSelectionBackground) 0%, var(--vscode-sideBar-background) 100%);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid var(--vscode-widget-border);
         }
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
         }
-        .status-dot.running { background: #4CAF50; }
-        .status-dot.stopped { background: #f44336; }
-        .status-text { flex: 1; font-size: 0.9em; }
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; font-size: 0.85em; margin-bottom: 4px; color: var(--vscode-descriptionForeground); }
+        .status-dot.running { 
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+        .status-dot.stopped { background: #78909C; }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 4px #4CAF50; }
+            50% { box-shadow: 0 0 12px #4CAF50; }
+        }
+        .status-text { flex: 1; font-size: 0.9em; font-weight: 500; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { 
+            display: block; 
+            font-size: 0.8em; 
+            margin-bottom: 6px; 
+            color: var(--vscode-descriptionForeground);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
         input[type="number"], input[type="text"] {
             width: 100%;
-            padding: 5px 8px;
-            border: 1px solid var(--vscode-input-border);
+            padding: 8px 12px;
+            border: 2px solid var(--vscode-input-border);
             background: var(--vscode-input-background);
             color: var(--vscode-input-foreground);
-            border-radius: 3px;
+            border-radius: 6px;
             font-size: 0.9em;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .checkbox-group { display: flex; align-items: center; gap: 6px; }
-        .checkbox-group input { width: 14px; height: 14px; }
+        input[type="number"]:focus, input[type="text"]:focus {
+            border-color: #4FC3F7;
+            box-shadow: 0 0 0 2px rgba(79,195,247,0.2);
+            outline: none;
+        }
+        .checkbox-group { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            padding: 8px;
+            background: var(--vscode-input-background);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .checkbox-group:hover {
+            background: var(--vscode-list-hoverBackground);
+        }
+        .checkbox-group input { width: 16px; height: 16px; cursor: pointer; }
+        .checkbox-group label { cursor: pointer; margin: 0; }
         button {
             width: 100%;
-            padding: 6px 10px;
+            padding: 10px 14px;
             border: none;
-            border-radius: 3px;
+            border-radius: 8px;
             font-size: 0.85em;
+            font-weight: 600;
             cursor: pointer;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .btn-primary { background: var(--vscode-button-background); color: var(--vscode-button-foreground); }
-        .btn-secondary { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
-        .btn-success { background: #4CAF50; color: white; }
-        .btn-danger { background: #f44336; color: white; }
-        .btn-row { display: flex; gap: 5px; }
+        button:hover { transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+        .btn-primary { 
+            background: linear-gradient(135deg, #42A5F5, #1E88E5); 
+            color: white;
+            box-shadow: 0 2px 8px rgba(30,136,229,0.3);
+        }
+        .btn-primary:hover { box-shadow: 0 4px 12px rgba(30,136,229,0.4); }
+        .btn-secondary { 
+            background: var(--vscode-button-secondaryBackground); 
+            color: var(--vscode-button-secondaryForeground);
+        }
+        .btn-secondary:hover { background: var(--vscode-list-hoverBackground); }
+        .btn-success { 
+            background: linear-gradient(135deg, #66BB6A, #4CAF50); 
+            color: white;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.3);
+        }
+        .btn-success:hover { box-shadow: 0 4px 12px rgba(76,175,80,0.4); }
+        .btn-danger { 
+            background: linear-gradient(135deg, #ef5350, #e53935); 
+            color: white;
+            box-shadow: 0 2px 8px rgba(244,67,54,0.3);
+        }
+        .btn-danger:hover { box-shadow: 0 4px 12px rgba(244,67,54,0.4); }
+        .btn-row { display: flex; gap: 8px; }
         .btn-row button { flex: 1; }
         select {
             width: 100%;
-            padding: 5px;
-            border: 1px solid var(--vscode-input-border);
+            padding: 8px 12px;
+            border: 2px solid var(--vscode-input-border);
             background: var(--vscode-input-background);
             color: var(--vscode-input-foreground);
-            border-radius: 3px;
-            margin-bottom: 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        select:focus {
+            border-color: #4FC3F7;
+            outline: none;
         }
         .toast {
-            position: fixed; bottom: 10px; left: 10px; right: 10px;
-            padding: 8px; background: #4CAF50; color: white;
-            border-radius: 3px; text-align: center; font-size: 0.85em;
-            opacity: 0; transition: opacity 0.3s;
+            position: fixed; bottom: 12px; left: 12px; right: 12px;
+            padding: 12px 16px; 
+            background: linear-gradient(135deg, #4CAF50, #45a049); 
+            color: white;
+            border-radius: 8px; 
+            text-align: center; 
+            font-size: 0.85em;
+            font-weight: 500;
+            opacity: 0; 
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(76,175,80,0.4);
+            transform: translateY(10px);
         }
-        .toast.show { opacity: 1; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        /* 分隔线样式 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--vscode-widget-border), transparent);
+            margin: 16px 0;
+        }
     </style>
 </head>
 <body>
