@@ -1,0 +1,148 @@
+{
+  "name": "ask-continue",
+  "displayName": "Ask Continue - AI对话持续工具",
+  "description": "在AI对话结束前询问用户是否继续，内置MCP服务器。",
+  "version": "1.8.0",
+  "publisher": "ask-continue",
+  "author": {
+    "name": "三千-qs"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "ai",
+    "chat",
+    "continue",
+    "windsurf",
+    "cursor",
+    "copilot",
+    "mcp",
+    "claude"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "askContinue",
+          "title": "Ask Continue",
+          "icon": "$(comment-discussion)"
+        }
+      ]
+    },
+    "views": {
+      "askContinue": [
+        {
+          "type": "webview",
+          "id": "askContinue.sidebarView",
+          "name": "AC Server -牛马工具-控制面板"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "askContinue.openSettings",
+        "title": "Ask Continue: 打开设置面板"
+      },
+      {
+        "command": "askContinue.show",
+        "title": "Ask Continue: 显示对话框"
+      },
+      {
+        "command": "askContinue.createRules",
+        "title": "Ask Continue: 创建规则文件"
+      },
+      {
+        "command": "askContinue.startMCPServer",
+        "title": "Ask Continue: 启动 MCP 服务器"
+      },
+      {
+        "command": "askContinue.stopMCPServer",
+        "title": "Ask Continue: 停止 MCP 服务器"
+      },
+      {
+        "command": "askContinue.toggleServer",
+        "title": "Ask Continue: 切换服务器状态"
+      },
+      {
+        "command": "askContinue.installMCP",
+        "title": "Ask Continue: 配置 MCP 服务"
+      }
+    ],
+    "configuration": {
+      "title": "Ask Continue",
+      "properties": {
+        "askContinue.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "启动VSCode时自动启动MCP服务器"
+        },
+        "askContinue.mcpPort": {
+          "type": "number",
+          "default": 3456,
+          "description": "MCP HTTP服务器端口"
+        },
+        "askContinue.popupMode": {
+          "type": "string",
+          "enum": ["direct", "hidden"],
+          "default": "direct",
+          "description": "弹窗模式：direct=直接弹出，hidden=隐藏到状态栏"
+        },
+        "askContinue.defaultReason": {
+          "type": "string",
+          "default": "任务已完成",
+          "description": "默认结束原因"
+        },
+        "askContinue.authorName": {
+          "type": "string",
+          "default": "三千-qs",
+          "description": "作者"
+        },
+        "askContinue.authorContact": {
+          "type": "string",
+          "default": "811459967",
+          "description": "QQ交流群"
+        },
+        "askContinue.description": {
+          "type": "string",
+          "default": "榨干你的每一点积分",
+          "description": "AC Server 牛马工具----"
+        },
+        "askContinue.nodeInstallTip": {
+          "type": "string",
+          "default": "若MCP报错需安装Node.js: https://nodejs.org/ 下载LTS版本，安装时勾选Add to PATH，完成后重启Windsurf",
+          "description": "Node.js 安装提示"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "tsc -p ./",
+    "obfuscate": "node obfuscate.js",
+    "build": "npm run compile",
+    "build:obfuscate": "npm run compile && npm run obfuscate",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.22.0",
+    "javascript-obfuscator": "^4.1.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ask-continue/vscode-extension"
+  }
+}
